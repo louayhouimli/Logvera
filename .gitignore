@@ -1,0 +1,57 @@
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+.idea/
+*.swp
+
+
+# Rider / VS
+.idea/
+.vs/
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+!*.example
+
+appsettings.Development.json
+appsettings.Local.json
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# =========================
+# Database
+# =========================
+*.db
+*.sqlite
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Test / Coverage
+# =========================
+coverage/
+*.coverage
+*.trx
+
+# =========================
+# Temporary
+# =========================
+tmp/
+temp/
