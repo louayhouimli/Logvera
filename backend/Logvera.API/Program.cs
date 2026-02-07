@@ -29,6 +29,7 @@ builder.Services.AddScoped<IApiService, ApiService>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddScoped<IAlertRuleService, AlertRuleService>();
+builder.Services.AddScoped<IAlertService, AlertService>();
 
 
 builder.Services.AddHostedService<AlertEvaluationService>();
@@ -75,6 +76,17 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(jwtKey!))
+    };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            if (context.Request.Cookies.ContainsKey("accessToken"))
+            {
+                context.Token = context.Request.Cookies["accessToken"];
+            }
+            return Task.CompletedTask;
+        }
     };
 });
 

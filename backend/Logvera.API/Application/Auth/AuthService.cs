@@ -83,11 +83,14 @@ namespace Logvera.API.Application.Auth
         new Claim(ClaimTypes.Email, user.Email)
     };
 
+
+            var expiryMs = _config.GetValue<int>("Jwt:ExpiryMs");
+
             var token = new JwtSecurityToken(
                 _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddHours(3),
+                expires: DateTime.UtcNow.AddMilliseconds(expiryMs),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

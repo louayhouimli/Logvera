@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
 
 namespace Logvera.API.Controllers
 {
@@ -46,6 +47,15 @@ namespace Logvera.API.Controllers
             {
                 return Unauthorized("Email or passowrd is incorrect.");
             }
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddMilliseconds(10 * 60 * 1000)
+            };
+            HttpContext.Response.Cookies.Append("accessToken", result.Token, cookieOptions);
+
             return Ok(result);
 
         }
