@@ -89,6 +89,18 @@ builder.Services.AddAuthentication(options =>
         }
     };
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("LogveraCors",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000", "https://logvera.com")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
+
 
 
 
@@ -110,13 +122,15 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseCors("LogveraCors");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.UseMiddleware<ApiKeyMiddleware>();
 
 app.MapControllers();
 
 app.Run();
-
 

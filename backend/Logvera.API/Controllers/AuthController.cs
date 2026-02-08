@@ -27,6 +27,26 @@ namespace Logvera.API.Controllers
             _authService = authService;
         }
 
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdClaim?.Value) || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Ok(null);
+            }
+            var userResponse = await _authService.GetUserByIdAsync(userId);
+            if (userResponse == null)
+            {
+                return Ok(null);
+            }
+            return Ok(userResponse);
+
+
+        }
+
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {

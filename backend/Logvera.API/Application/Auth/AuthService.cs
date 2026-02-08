@@ -29,6 +29,19 @@ namespace Logvera.API.Application.Auth
             _passwordHasher = passwordHasher;
         }
 
+
+        public async Task<UserResponse?> GetUserByIdAsync(Guid userId)
+        {
+            return await _db.Users
+                .Where(u => u.Id == userId)
+                .Select(u => new UserResponse
+                {
+                    Id = u.Id,
+                    Email = u.Email
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<AuthResponse> LoginAsync(LoginRequest request)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == request.Email);

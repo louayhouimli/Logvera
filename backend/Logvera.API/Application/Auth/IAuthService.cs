@@ -9,6 +9,7 @@ namespace Logvera.API.Application.Auth
 {
     public interface IAuthService
     {
+        Task<UserResponse?> GetUserByIdAsync(Guid userId);
         Task<UserResponse> RegisterAsync(RegisterRequest request);
         Task<AuthResponse> LoginAsync(LoginRequest request);
     }
