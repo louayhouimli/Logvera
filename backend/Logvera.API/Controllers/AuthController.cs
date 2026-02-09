@@ -53,7 +53,7 @@ namespace Logvera.API.Controllers
             var userResponse = await _authService.RegisterAsync(request);
             if (userResponse == null)
             {
-                return BadRequest("Email already exists.");
+                throw new InvalidOperationException("Email is already in use.");
             }
             return Ok(userResponse);
         }
@@ -65,7 +65,7 @@ namespace Logvera.API.Controllers
             var result = await _authService.LoginAsync(request);
             if (result == null)
             {
-                return Unauthorized("Email or passowrd is incorrect.");
+                throw new UnauthorizedAccessException("Invalid email or password.");
             }
             var cookieOptions = new CookieOptions
             {
@@ -78,6 +78,14 @@ namespace Logvera.API.Controllers
 
             return Ok(result);
 
+        }
+
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Delete("accessToken");
+            return Ok();
         }
 
 

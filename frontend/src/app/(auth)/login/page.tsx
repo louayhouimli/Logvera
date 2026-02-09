@@ -27,11 +27,7 @@ const Login = () => {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    loginMutation.mutate(data, {
-      onSuccess: () => {
-        router.push("/");
-      },
-    });
+    loginMutation.mutate(data);
   };
   return (
     <Background>
@@ -40,13 +36,15 @@ const Login = () => {
           <div className="flex flex-col gap-4">
             <Card className="mx-auto w-full max-w-sm">
               <CardHeader className="flex flex-col items-center space-y-0">
-                <Image
-                  src="/logo.svg"
-                  alt="logo"
-                  width={38}
-                  height={38}
-                  className="mb-7 dark:invert"
-                />
+                <Link href="/" className="mb-7">
+                  <Image
+                    src="/logo.svg"
+                    alt="logo"
+                    width={38}
+                    height={38}
+                    className="mb-7 dark:invert"
+                  />
+                </Link>
                 <p className="mb-2 text-2xl font-bold">Welcome back!</p>
                 <p className="text-muted-foreground">
                   Please enter your details.

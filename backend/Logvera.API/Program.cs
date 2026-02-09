@@ -12,6 +12,7 @@ using Logvera.API.Application.Auth;
 using Logvera.API.Application.Logs;
 using Logvera.API.Application.Analytics;
 using Logvera.API.Application.Alerts;
+using Logvera.API;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,9 @@ builder.Services.AddScoped<IAlertService, AlertService>();
 
 
 builder.Services.AddHostedService<AlertEvaluationService>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 
 
 
@@ -86,8 +90,14 @@ builder.Services.AddAuthentication(options =>
                 context.Token = context.Request.Cookies["accessToken"];
             }
             return Task.CompletedTask;
+        },
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+            throw new UnauthorizedAccessException("You are not authorized to access this resource.");
         }
     };
+
 });
 builder.Services.AddCors(options =>
 {
@@ -106,6 +116,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<LogveraDbContext>();
@@ -117,6 +129,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 

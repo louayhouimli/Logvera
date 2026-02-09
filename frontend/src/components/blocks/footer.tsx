@@ -21,11 +21,7 @@ export function Footer() {
   const legal = [{ name: "Privacy Policy", href: "/privacy" }];
 
   return (
-    <footer className="flex flex-col items-center pb-10 gap-14  pt-28 lg:pb-20">
-      
-
-      
-
+    <footer className="flex flex-col items-center gap-14 pt-10 pb-10 lg:pb-20">
       <nav className="container flex flex-col items-center gap-4">
         <ul className="flex flex-wrap items-center justify-center gap-6">
           {navigation.map((item) => (

@@ -31,11 +31,7 @@ const Signup = () => {
   });
 
   const onSubmit = (data: RegisterFormValues) => {
-    registerMutation.mutate(data, {
-      onSuccess: () => {
-        router.push("/login");
-      },
-    });
+    registerMutation.mutate(data);
   };
   return (
     <Background>
@@ -44,13 +40,15 @@ const Signup = () => {
           <div className="flex flex-col gap-4">
             <Card className="mx-auto w-full max-w-sm">
               <CardHeader className="flex flex-col items-center space-y-0">
-                <Image
-                  src="/logo.svg"
-                  alt="logo"
-                  width={38}
-                  height={38}
-                  className="mb-7 dark:invert"
-                />
+                <Link href="/" className="mb-7">
+                  <Image
+                    src="/logo.svg"
+                    alt="logo"
+                    width={38}
+                    height={38}
+                    className="mb-7 dark:invert"
+                  />
+                </Link>
                 <p className="mb-2 text-2xl font-bold">Create your account</p>
                 <p className="text-muted-foreground">
                   Sign up in less than 2 minutes.
@@ -79,6 +77,18 @@ const Signup = () => {
                       {errors.password && (
                         <p className="text-sm text-red-500">
                           {errors.password.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <Input
+                        type="password"
+                        placeholder="Confirm your password"
+                        {...register("confirmPassword")}
+                      />
+                      {errors.confirmPassword && (
+                        <p className="text-sm text-red-500">
+                          {errors.confirmPassword.message}
                         </p>
                       )}
                     </div>
