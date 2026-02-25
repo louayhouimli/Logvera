@@ -1,5 +1,5 @@
 import { login, logout, register } from "@/api/endpoints/auth.api";
-import { ErrorResponse } from "@/api/types/Error/ErrorResponse";
+import { ErrorResponse } from "@/api/types/error/ErrorResponse";
 import { queryKeys } from "@/lib/queryKeys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";

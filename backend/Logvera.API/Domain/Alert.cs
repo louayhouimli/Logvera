@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace Logvera.API.Domain
 {
-    public class Alert
-    {
-        public Guid Id { get; set; }
-        public Guid ApiId { get; set; }
+  public class Alert
+  {
+    public Guid Id { get; set; }
+    public Guid ApiId { get; set; }
 
-        public string Message { get; set; } = null!;
-        public bool IsRead { get; set; }
+    public string Message { get; set; } = null!;
+    public bool IsRead { get; set; }
 
-        public Guid AlertRuleId { get; set; }
-        public DateTime CreatedAt { get; set; }
+    public Guid AlertRuleId { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-        public Api Api { get; set; } = null!;
-    }
+    public Api Api { get; set; } = null!;
+  }
 }

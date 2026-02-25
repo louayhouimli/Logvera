@@ -1,9 +1,9 @@
-import { Register } from "@tanstack/react-query";
-import { apiClient } from "../client";
-import { AuthResponse } from "../types/auth/AuthResponse";
-import { LoginRequest } from "../types/auth/LoginRequest";
-import { RegisterRequest } from "../types/auth/RegisterRequest";
-import { UserResponse } from "../types/auth/UserResponse";
+import {Register} from "@tanstack/react-query";
+import {apiClient} from "../client";
+import {AuthResponse} from "../types/auth/AuthResponse";
+import {LoginRequest} from "../types/auth/LoginRequest";
+import {RegisterRequest} from "../types/auth/RegisterRequest";
+import {UserResponse} from "../types/auth/UserResponse";
 
 export const getMe = async (): Promise<UserResponse | null> => {
   const response = await apiClient.get<UserResponse>("/auth/me");
