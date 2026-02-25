@@ -38,12 +38,6 @@ docker-compose.override.yml
 *.sqlite
 
 # =========================
-# Logs
-# =========================
-logs/
-*.log
-
-# =========================
 # Test / Coverage
 # =========================
 coverage/
